@@ -1,0 +1,15 @@
+requests
+pandas
+numpy
+scikit-learn
+scikit-image
+tensorflow
+keras
+praw
+opencv-python
+beautifulsoup4
+matplotlib
+seaborn
+Flask
+Flask-SQLAlchemy
+Flask-Migrate

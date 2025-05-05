@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<div style="text-align: center; margin-top: 50px;">
+  <h1 style="font-size: 96px;">Welcome to Barks & Paws</h1>
+  <p style="font-size: 32px;">Find your perfect companion today!</p>
+</div>
+
+<!-- Cats Section -->
+<div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 40px;">
+  {% for pet in pets if pet.type == 'cat' %}
+  <div style="text-align: center; width: 220px;">
+    <a href="{{ url_for('main.pet_details', pet_id=pet.id) }}">
+      <img 
+        src="{{ url_for('static', filename=pet.image_url) }}" 
+        alt="{{ pet.name }}" 
+        style="width: 200px; height: 200px; object-fit: cover; border-radius: 12px;" />
+    </a>
+    <h3 style="font-size: 20px;">{{ pet.name }}</h3>
+  </div>
+  {% endfor %}
+</div>
+
+<!-- Dogs Section -->
+<div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 40px;">
+  {% for pet in pets if pet.type == 'dog' %}
+  <div style="text-align: center; width: 220px;">
+    <a href="{{ url_for('main.pet_details', pet_id=pet.id) }}">
+      <img 
+        src="{{ url_for('static', filename=pet.image_url) }}" 
+        alt="{{ pet.name }}" 
+        style="width: 200px; height: 200px; object-fit: cover; border-radius: 12px;" />
+    </a>
+    <h3 style="font-size: 20px;">{{ pet.name }}</h3>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

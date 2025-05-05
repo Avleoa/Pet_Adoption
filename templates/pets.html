@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block sidebar %}
+<h3>Categories</h3>
+<ul>
+    <li><a href="/pets?category=dogs">Dogs</a></li>
+    <li><a href="/pets?category=cats">Cats</a></li>
+    <!-- Add more categories dynamically -->
+</ul>
+{% endblock %}
+
+{% block content %}
+  <div class="central-content">
+    <h1>Available Pets</h1>
+  </div>
+  <div class="pets-grid">
+    {% for pet in pets if pet.species == 'Cat' %}
+    <div class="pet-card">
+      <a href="{{ url_for('main.pet_details', pet_id=pet.id) }}">
+        <img src="{{ url_for('static', filename=pet.image_url) }}" alt="{{ pet.name }}">
+      </a>
+      <h3>{{ pet.name }}</h3>
+    </div>
+    {% endfor %}
+    {% for pet in pets if pet.species == 'Dog' %}
+    <div class="pet-card">
+      <a href="{{ url_for('main.pet_details', pet_id=pet.id) }}">
+        <img src="{{ url_for('static', filename=pet.image_url) }}" alt="{{ pet.name }}">
+      </a>
+      <h3>{{ pet.name }}</h3>
+    </div>
+    {% endfor %}
+  </div>
+{% endblock %}

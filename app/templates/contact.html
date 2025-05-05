@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Contact Us</h2>
+<p>Phone: +48535576215</p>
+<p>Email: <a href="mailto:barksandpaws@hotmail.com">barksandpaws@hotmail.com</a></p>
+<p>Location: [Chmielna 33, Warsaw]</p>
+<form method="POST">
+    <label for="message">Your Message:</label>
+    <textarea id="message" name="message" required></textarea>
+    <button type="submit">Send</button>
+</form>
+{% endblock %}

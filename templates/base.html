@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barks & Paws</title>
+    <style>
+        /* Basic styling for layout */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            /* subtle tile pattern */
+            background-color: #f4f4f4;
+            background-image: url('https://www.transparenttextures.com/patterns/gray_wash_wall.png');
+            background-repeat: repeat;
+        }
+        nav {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+        nav a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+        .container {
+            display: flex;
+        }
+        .sidebar {
+            width: 20%;
+            background-color: #f4f4f4;
+            padding: 10px;
+        }
+        .main-content {
+            width: 60%;
+            padding: 10px;
+        }
+        .extra-content {
+            width: 20%;
+            background-color: #f9f9f9;
+            padding: 10px;
+        }
+        /* Central wrapper to center and constrain content */
+        .central-content { max-width: 800px; margin: 40px auto; text-align: center; line-height: 1.6; }
+        /* Adoption step list: keep each step on one line and add spacing */
+        .central-content ol li {
+            white-space: nowrap;
+            margin-bottom: 30px;
+        }
+        /* Form frame for login/register */
+        .form-frame {
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 40px;
+            width: 80%;
+            max-width: 800px;
+            margin: 40px auto;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        /* Auth page wrapper to center form vertically */
+        .auth-page {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+        }
+        /* Larger, spaced form elements */
+        .form-frame h2 {
+            font-size: 1.6em;
+            margin-bottom: 20px;
+        }
+        .form-frame label {
+            display: block;
+            margin: 10px 0 5px;
+            font-size: 1.1em;
+        }
+        .form-frame input {
+            width: 60%;
+            padding: 8px;
+            margin: 0 auto 15px;
+            font-size: 1.1em;
+        }
+        .form-frame button {
+            padding: 10px 20px;
+            font-size: 1.1em;
+            margin-top: 10px;
+        }
+        /* Pets grid layout: cats on top row, dogs below */
+        .pets-grid { display: grid; grid-template-columns: repeat(3, 1fr);
+                     gap: 20px; max-width: 760px; margin: 40px auto; }
+        /* Center pet card content and enforce uniform image size */
+        .pets-grid .pet-card { text-align: center; }
+        .pets-grid .pet-card img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; }
+        /* Pet name styling under each photo */
+        .pets-grid .pet-card h3 {
+            margin-top: 10px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        /* Background pattern for adoption and contact pages */
+        .bg-pattern { background: repeating-linear-gradient(45deg, #f9f9f9, #f9f9f9 20px, #fff 20px, #fff 40px); padding: 60px 0; }
+        /* Background paw pattern */
+        .paw-background {
+            background-image: url('https://www.transparenttextures.com/patterns/pawprint.png');
+            background-repeat: repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('main.index') }}">Home</a>
+        <a href="{{ url_for('main.pets') }}">Available Pets</a>
+        <a href="{{ url_for('main.adoption') }}">Adoption</a>
+        <a href="{{ url_for('main.about') }}">About Us</a>
+        <a href="{{ url_for('main.contact') }}">Contact</a>
+        <form action="{{ url_for('main.pets') }}" method="get" style="display:inline; margin-left:20px;">
+          <input type="text" name="q" placeholder="Search pets..." />
+          <button type="submit">Search</button>
+        </form>
+        <a href="{{ url_for('main.login') }}">Log In</a>
+        <a href="{{ url_for('main.register') }}">Register</a>
+    </nav>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-container">
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
