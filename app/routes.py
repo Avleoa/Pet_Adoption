@@ -5,7 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask import Blueprint
 from sqlalchemy import or_
 
-main = Blueprint('main', _name_)
+main = Blueprint('main', __name__)
 
 @main.route('/ping')
 def ping():
@@ -102,3 +102,12 @@ def pets():
 def pet_details(pet_id):
     pet = Pet.query.get_or_404(pet_id)
     return render_template('pet_details.html', pet=pet)
+
+@main.route('/adopt/<int:pet_id>', methods=['GET', 'POST'])
+def adopt_pet(pet_id):
+    pet = Pet.query.get_or_404(pet_id)
+    if request.method == 'POST':
+        # Process form data here (save to DB or send email)
+        flash(f'Your adoption application for {pet.name} has been submitted!', 'success')
+        return redirect(url_for('main.pet_details', pet_id=pet.id))
+    return render_template('adoption_application.html', pet=pet)

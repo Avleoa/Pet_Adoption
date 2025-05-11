@@ -8,5 +8,6 @@
   <p><strong>Breed:</strong> {{ pet.breed }}</p>
   <p><strong>Species:</strong> {{ pet.species }}</p>
   <p><strong>Color:</strong> {{ pet.description.replace('Color: ', '') }}</p>
+  <a href="{{ url_for('main.adopt_pet', pet_id=pet.id) }}" class="btn btn-primary">Adopt Me</a>
 </div>
 {% endblock %}
