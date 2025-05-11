@@ -1,12 +1,5 @@
-__pycache__/
 venv/
-.env
-.DS_Store
-*.log
-**/__pycache__/
-*.py[cod]
-*$py.class
-bin/
-lib/
-share/
-pyvenv.cfg
+__pycache__/
+*.db
+*.pyc
+pet_project/

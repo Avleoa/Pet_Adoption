@@ -3,8 +3,9 @@ from app import db
 from app.models import User, Pet, AdoptionRequest, Message
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import Blueprint
+from sqlalchemy import or_
 
-main = Blueprint('main', __name__)
+main = Blueprint('main', _name_)
 
 @main.route('/ping')
 def ping():
@@ -86,7 +87,13 @@ def pets():
     # List available pets, optionally filter by search query
     query = request.args.get('q', '')
     if query:
-        pets_list = Pet.query.filter(Pet.name.ilike(f"%{query}%"), Pet.is_adopted==False).all()
+        pets_list = Pet.query.filter(
+            Pet.is_adopted==False,
+            or_(
+                Pet.name.ilike(f"%{query}%"),
+                Pet.species.ilike(f"%{query}%")
+            )
+        ).all()
     else:
         pets_list = Pet.query.filter_by(is_adopted=False).all()
     return render_template('pets.html', pets=pets_list)
@@ -95,4 +102,3 @@ def pets():
 def pet_details(pet_id):
     pet = Pet.query.get_or_404(pet_id)
     return render_template('pet_details.html', pet=pet)
-

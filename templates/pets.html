@@ -20,6 +20,7 @@
         <img src="{{ url_for('static', filename=pet.image_url) }}" alt="{{ pet.name }}">
       </a>
       <h3>{{ pet.name }}</h3>
+      <p>Age: {{ pet.age }} {% if pet.age != 1 %}years old{% else %}year old{% endif %}</p>
     </div>
     {% endfor %}
     {% for pet in pets if pet.species == 'Dog' %}
@@ -28,6 +29,7 @@
         <img src="{{ url_for('static', filename=pet.image_url) }}" alt="{{ pet.name }}">
       </a>
       <h3>{{ pet.name }}</h3>
+      <p>Age: {{ pet.age }} {% if pet.age != 1 %}years old{% else %}year old{% endif %}</p>
     </div>
     {% endfor %}
   </div>
