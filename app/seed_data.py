@@ -6,10 +6,10 @@ from werkzeug.security import generate_password_hash
 def main():
     app = create_app()
     with app.app_context():
-        # Reset database tables
+        
         db.drop_all()
         db.create_all()
-        # Create default admin user with known password
+  
         if not User.query.filter_by(username='admin').first():
             admin = User(
                 username='admin',
@@ -19,14 +19,14 @@ def main():
             db.session.add(admin)
             print("Created admin user 'admin' with password 'password'.")
 
-        # Seed Pet records with specific names, age, breed, and color
+        
         pets_info = [
-            {"image": "cat1.jpg", "species": "Cat", "name": "Caramel", "age": 2,   "breed": "Domestic Shorthair",   "description": "Color: Orange Tabby"},
-            {"image": "cat2.jpg", "species": "Cat", "name": "Luna",    "age": 1.5, "breed": "Ragdoll",             "description": "Color: Seal Bicolor"},
-            {"image": "cat3.jpg", "species": "Cat", "name": "Milo",    "age": 2.5, "breed": "British Shorthair",   "description": "Color: Blue"},
-            {"image": "dog1.jpg", "species": "Dog", "name": "Barry",   "age": 3,   "breed": "Bernese Mountain Dog","description": "Color: Tricolor"},
-            {"image": "dog2.jpg", "species": "Dog", "name": "Bella",   "age": 3.5, "breed": "Golden Retriever",    "description": "Color: Light Golden"},
-            {"image": "dog3.jpg", "species": "Dog", "name": "Rocky",   "age": 4,   "breed": "German Shepherd",      "description": "Color: Black and Tan"},
+            {"image": "cat1.jpg", "species": "Cat", "name": "Caramel", "age": 2,   "breed": "Domestic Shorthair",   "description": "Color: Orange Tabby", "address": "123 Cat Lane", "city": "Pawville", "phone_number": "555-123-432"},
+            {"image": "cat2.jpg", "species": "Cat", "name": "Luna",    "age": 1.5, "breed": "Ragdoll",             "description": "Color: Seal Bicolor", "address": "456 Cat Street", "city": "Meowtown", "phone_number": "555-987-654"},
+            {"image": "cat3.jpg", "species": "Cat", "name": "Milo",    "age": 2.5, "breed": "British Shorthair",   "description": "Color: Blue", "address": "789 Cat Avenue", "city": "Feline City", "phone_number": "555-321-098"},
+            {"image": "dog1.jpg", "species": "Dog", "name": "Barry",   "age": 3,   "breed": "Bernese Mountain Dog","description": "Color: Tricolor", "address": "321 Dog Lane", "city": "Barksville", "phone_number": "555-654-321"},
+            {"image": "dog2.jpg", "species": "Dog", "name": "Bella",   "age": 3.5, "breed": "Golden Retriever",    "description": "Color: Light Golden", "address": "654 Dog Street", "city": "Woofington", "phone_number": "555-456-789"},
+            {"image": "dog3.jpg", "species": "Dog", "name": "Rocky",   "age": 4,   "breed": "German Shepherd",      "description": "Color: Black and Tan", "address": "987 Dog Avenue", "city": "Dogtown", "phone_number": "555-789-012"},
         ]
         for info in pets_info:
             url = f'images/{info["image"]}'
@@ -37,7 +37,10 @@ def main():
                     breed=info["breed"],
                     age=info["age"],
                     description=info["description"],
-                    image_url=url
+                    image_url=url,
+                    address=info["address"],
+                    city=info["city"],
+                    phone_number=info["phone_number"]
                 )
                 db.session.add(pet)
                 print(f"Added Pet: {pet.name} ({info['species']}) with image {url}")

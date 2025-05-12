@@ -1,12 +1,16 @@
 {% extends "base.html" %}
 
+{% block corner_logo %}{% endblock %}
+
 {% block content %}
 <div class="welcome-background">
-  <div class="central-content">
-    <h1>Welcome to Barks & Paws</h1>
+  <div class="central-content" style="text-align:center;">
+    <img src="{{ url_for('static', filename='images/barks-and-paws-2.jpg') }}" alt="Barks and Paws Logo" class="home-logo">
+    <h1>Welcome to Barks and Paws</h1>
     <p style="font-size:2em;">Find your perfect companion today!</p>
   </div>
-  <div class="pets-grid">
+  
+  <!-- <div class="pets-grid">
     {% for pet in pets %}
     <div class="pet-card">
       <a href="{{ url_for('main.pet_details', pet_id=pet.id) }}">
@@ -15,7 +19,7 @@
       <h3>{{ pet.name }}</h3>
     </div>
     {% endfor %}
-  </div>
+  </div> -->
 </div>
 {% endblock %}
 

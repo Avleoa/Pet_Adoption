@@ -1,13 +1,29 @@
 {% extends "base.html" %}
-
 {% block content %}
-<div class="pet-detail-container">
-  <h1>{{ pet.name }}</h1>
-  <img src="{{ url_for('static', filename=pet.image_url) }}" alt="{{ pet.name }}">
-  <p><strong>Age:</strong> {{ pet.age }} {% if pet.age != 1 %}years{% else %}year{% endif %} old</p>
-  <p><strong>Breed:</strong> {{ pet.breed }}</p>
-  <p><strong>Species:</strong> {{ pet.species }}</p>
-  <p><strong>Color:</strong> {{ pet.description.replace('Color: ', '') }}</p>
-  <a href="{{ url_for('main.adopt_pet', pet_id=pet.id) }}" class="btn btn-primary">Adopt Me</a>
+<div class="pet-info-card">
+    <div class="pet-info-header">
+        <img src="{{ url_for('static', filename=pet.image_url) }}" alt="{{ pet.name }}" class="pet-logo">
+        <h2>{{ pet.name }}</h2>
+        <div class="pet-location">
+            {{ pet.address }}, <b>{{ pet.city }}</b>
+        </div>
+    </div>
+    <div class="pet-map">
+        <iframe
+            width="100%"
+            height="200"
+            frameborder="0"
+            style="border:0; border-radius: 12px;"
+            src="https://www.google.com/maps?q={{ pet.address | urlencode }},{{ pet.city | urlencode }}&output=embed"
+            allowfullscreen>
+        </iframe>
+    </div>
+    <div class="pet-contact">
+        <p>Interested in adopting this pet?</p>
+        <a href="tel:{{ pet.phone_number }}" class="phone-btn">
+            <span class="phone-icon">&#128222;</span> {{ pet.phone_number }}
+        </a>
+        <a href="{{ url_for('main.adopt_pet', pet_id=pet.id) }}" class="adopt-btn">Adopt Me</a>
+    </div>
 </div>
 {% endblock %}

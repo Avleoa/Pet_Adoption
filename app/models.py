@@ -18,6 +18,9 @@ class Pet(db.Model):
     breed = db.Column(db.String(50), nullable=False)
     age = db.Column(db.Integer, nullable=False)
     description = db.Column(db.Text, nullable=True)
+    address = db.Column(db.String(255))
+    city = db.Column(db.String(100))
+    phone_number = db.Column(db.String(30))
     image_url = db.Column(db.String(200), nullable=True)
     is_adopted = db.Column(db.Boolean, default=False)
 

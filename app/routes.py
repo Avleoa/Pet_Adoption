@@ -13,7 +13,7 @@ def ping():
 
 @main.route('/')
 def index():
-    # Show first 6 available pets on home page
+    
     pets = Pet.query.filter_by(is_adopted=False).limit(6).all()
     return render_template('index.html', pets=pets)
 
@@ -84,7 +84,7 @@ def about():
 
 @main.route('/pets')
 def pets():
-    # List available pets, optionally filter by search query
+   
     query = request.args.get('q', '')
     if query:
         pets_list = Pet.query.filter(
@@ -107,7 +107,7 @@ def pet_details(pet_id):
 def adopt_pet(pet_id):
     pet = Pet.query.get_or_404(pet_id)
     if request.method == 'POST':
-        # Process form data here (save to DB or send email)
+      
         flash(f'Your adoption application for {pet.name} has been submitted!', 'success')
         return redirect(url_for('main.pet_details', pet_id=pet.id))
     return render_template('adoption_application.html', pet=pet)
